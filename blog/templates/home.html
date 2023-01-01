@@ -11,15 +11,15 @@
 <link rel="stylesheet" href="{{CDN}}/styles/article.css">
 {% endblock %}
 
-{% block meta_description %}Detailed guides to help you grow.{% endblock %}
+{% block meta_description %}{{APPNAME}}{% endblock %}
 {% block og_url %}{% endblock %}
 {% block og_title %}{{APPNAME}}{% endblock %}
-{% block og_description %}Detailed guides to help you grow.{% endblock %}
-{% block og_site_name %}{{SUBAPPNAME|capfirst}}{% endblock %}
+{% block og_description %}{APPNAME}}{% endblock %}
+{% block og_site_name %}{{APPNAME}}{% endblock %}
 
-{% block tw_url %}{{URLS.HOWTO}}{% endblock %}
-{% block tw_title %}{{SUBAPPNAME|capfirst}}{% endblock %}
-{% block tw_description %}Detailed guides to help you grow.{% endblock %}
+{% block tw_url %}{% endblock %}
+{% block tw_title %}{{APPNAME}}{% endblock %}
+{% block tw_description %}{{APPNAME}}{% endblock %}
 
 {% block nav_text %}{{APPNAME}}{% endblock %}
 
@@ -30,5 +30,25 @@
 {% endblock %}
 
 {% block content %}
-        {% placeholder "content" %}
+<div class="w3-row w3-padding welcome-row tertiary">
+  <div class='w3-row w3-padding'>
+	  <br/>
+	  <h1 class="w3-jumbo w3-hide-small">Thoughts and stuff.</h1>
+	  <h2 class="w3-hide-medium w3-hide-large">Thoughts and stuff.</h2>
+	  <br/>
+
+  <strong class='text-large dead-text'>
+    The official blog of Knotters Community.<br/><br/>
+  </strong>
+  </div>
+  <div class='w3-row w3-padding'>
+    <a href="https://knotters.org/signup">
+    <button class='big-button border-joy primary' data-icon='person_add'>
+      {% trans "Join" %} Knotters
+    </button>
+    </a>
+  </div>
+  <br/><br/>
+</div>
+
 {% endblock content %}

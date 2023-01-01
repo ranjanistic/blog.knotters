@@ -8,24 +8,21 @@
 {% load cms_tags %}
 
 
-{% block meta_description %}{{article.subheading}}{% endblock %}
+{% block meta_description %}{{request.current_page.get_meta_description}}{% endblock %}
 {% block og_type %}article{% endblock %}
-{% block og_url %}{{article.getLink}}{% endblock %}
-{% block og_title %}{{article.heading}}{% endblock %}
-{% block og_description %}{{article.subheading}}{% endblock %}
+{% block og_url %}{{request.path}}{% endblock %}
+{% block og_title %}{{request.current_page.get_title}}{% endblock %}
+{% block og_description %}{{request.current_page.get_meta_description}}{% endblock %}
 {% block og_image_url %}{{ article.getImage }}{% endblock %}
 
 {% block metatags %}
 {% endblock %}
 
-{% block tw_url %}{{article.getLink}}{% endblock %}
-{% block tw_title %}{{article.heading}}{% endblock %}
-{% block tw_description %}{{article.subheading}}{% endblock %}
-{% block tw_image_url %}{{ article.getImage }}{% endblock %}
+{% block tw_url %}{{ request.path }}{% endblock %}
+{% block tw_title %}{{request.current_page.get_title}}{% endblock %}
+{% block tw_description %}{{request.current_page.get_meta_description}}{% endblock %}
 
-{% block ld_image_url %}{{ article.getImage }}{% endblock %}
-
-{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+{% block title %}{{request.current_page.get_page_title}}{% endblock title %}
 
 {% block nav_href %}/{% endblock %}
 
@@ -48,15 +45,15 @@
                     <div class="w3-row w3-padding paragraph" id="heading-view">
                         <h1>{{ request.current_page.get_title }}</h1>
                     </div>
-                    <div class="w3-row text-large w3-padding paragraph" id="subheading-view">{{ request.current_page.get_meta_description }}</div>
+                    <div class="w3-row text-large w3-padding paragraph" id="subheading-view">{{ request.current_page.get_meta_description|or:"[No meta description]" }}</div>
                 </div>
             </div>
             <br />
             <div class="w3-row">
-                <div class="w3-col m5 l3 w3-padding"><span class="dead-text">{% page_attribute "page_publish" %}{{request.current_page.publication_date}}</span></div>
+                <div class="w3-col m5 l3 w3-padding"><span class="dead-text">{% page_attribute "page_publish" %}{{request.current_page.publication_date|or:'Unpublished'}}</span></div>
                 <div class="w3-col m7 l9 w3-padding">
                     <div id="view-articletags">
-                            <button class=" small accent navigator-share-action" data-icon="share" data-title="{{request.current_page.get_title}}" data-text="{{request.current_page.get_meta_description}}" data-url="{{request.path}}"></button>
+                            <button class=" small accent navigator-share-action" data-icon="share" data-title="{{request.current_page.get_title}}" data-text="{{request.current_page.get_meta_description|or:''}}" data-url="{{request.path}}"></button>
                     </div>
                 </div>
             </div>
@@ -64,15 +61,14 @@
         <div class="w3-col m4 l4 w3-right">
             <div class="w3-row w3-padding w3-right-align">
                 <a href="https://knotters.org/">
-                    <img class="w3-circle w3-right" src="{{ICON}}" width="50"/>
-                    <h6 class="dead-text w3-right w3-padding-small">{{APPNAME}}</h6>
+                    <img class="w3-right darkimg" src="{{BANNER}}" width="200" alt="Knotters" />
                 </a>
             </div>
         </div>
     </div>
     <br />
-        <div class="w3-row section-body w3-padding">
-            <div class="sections w3-padding">
+        <div class="w3-row w3-padding">
+            <div class="w3-padding">
 	{% placeholder "content" %}
             </div>
         </div>

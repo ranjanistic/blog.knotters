@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
-
+from .env import ADMINPATH
+print(ADMINPATH)
 admin.autodiscover()
 
 urlpatterns = [
@@ -13,7 +14,7 @@ urlpatterns = [
 ]
 
 
-urlpatterns += i18n_patterns(path("admin/", admin.site.urls), path("", include("cms.urls")))
+urlpatterns += i18n_patterns(path(f"{ADMINPATH}/", admin.site.urls), path("", include("cms.urls")))
 
 # This is only needed when using runserver.
 if settings.DEBUG:
