@@ -110,12 +110,11 @@
         {% cms_toolbar %}
         {% block nav %}
         <nav class="w3-row {% block nav_style %}primary{% endblock %} w3-animate-top" id="navbar">
-            <div class="w3-row w3-center tertiary pointer beta-alert-view" hidden>This is Knotters Beta, not Knotters. {% trans "Click here to learn more." %}</div>
             {% block nav_title %}
             <div class="w3-col s1 m3">
             <a
                 style="padding:8px"
-                href="{% block nav_href %}{% if request.GET.previous %}{{request.GET.previous}}{% else %}{{ROOT}}{% endif %}{% endblock %}{% if request.GET.miniwin %}?miniwin=1{% endif %}" 
+                href="{% block nav_href %}{% if request.GET.previous %}{{request.GET.previous}}{% else %}https://knotters.org{% endif %}{% endblock %}" 
                 class="w3-left w3-animate-left previous-navigation-button">
                 <span hidden>{{APPNAME}}</span>
                 {% block nav_icon_hide %}
@@ -215,19 +214,8 @@
                 <center>
                 <br/>
                 {% block footer_social %}
-                    {% for social in SOCIALS %}
-                    <a href="{{social.link}}" target="_blank" rel="noreferrer">
-                        <span hidden>{{social.name}}</span>
-                        <button aria-label="{{social.name}}" class="primary w3-animate-zoom">
-                            <img alt="{{social.name}}" src="{% static 'graphics/thirdparty/' %}{{social.key}}.webp" width="{{social.width}}" height="{{social.height}}" 
-                            {% if social.has_dark %}
-                                class="darkimg"
-                            {% endif %}
-                            loading="lazy"
-                            />
-                        </button>
-                    </a>
-                    {% endfor %}
+<a href="https://github.com/Knotters" rel="noreferrer" target="_blank"><span hidden="">Github</span><button aria-label="Github" class="primary w3-animate-zoom"><img alt="Github" class="darkimg" height="20" loading="lazy" src="{{CDN}}/graphics/thirdparty/github.webp" width="20"/></button></a> <a href="https://wa.me/919311797944" rel="noreferrer" target="_blank"><span hidden="">WhatsApp</span><button aria-label="WhatsApp" class="primary w3-animate-zoom"><img alt="WhatsApp" height="23" loading="lazy" src="{{CDN}}/graphics/thirdparty/whatsapp.webp" width="32"/></button></a> <a href="https://twitter.com/knottersdotorg" rel="noreferrer" target="_blank"><span hidden="">Twitter</span><button aria-label="Twitter" class="primary w3-animate-zoom"><img alt="Twitter" height="22" loading="lazy" src="{{CDN}}/graphics/thirdparty/twitter.webp" width="22"/></button></a> <a href="https://instagram.com/knottersdotorg" rel="noreferrer" target="_blank"><span hidden="">Instagram</span><button aria-label="Instagram" class="primary w3-animate-zoom"><img alt="Instagram" class="darkimg" height="18" loading="lazy" src="{{CDN}}/graphics/thirdparty/instagram.webp" width="18"/></button></a> <a href="https://facebook.com/knottersdotorg" rel="noreferrer" target="_blank"><span hidden="">Facebook</span><button aria-label="Facebook" class="primary w3-animate-zoom"><img alt="Facebook" height="18" loading="lazy" src="{{CDN}}/graphics/thirdparty/facebook.webp" width="18"/></button></a> <a href="https://discord.gg/q22uzPscnh" rel="noreferrer" target="_blank"><span hidden="">Discord</span><button aria-label="Discord" class="primary w3-animate-zoom"><img alt="Discord" height="20" loading="lazy" src="{{CDN}}/graphics/thirdparty/discord.webp" width="18"/></button></a> <a href="https://linkedin.com/company/knottersdotorg" rel="noreferrer" target="_blank"><span hidden="">LinkedIn</span><button aria-label="LinkedIn" class="primary w3-animate-zoom"><img alt="LinkedIn" height="18" loading="lazy" src="{{CDN}}/graphics/thirdparty/linkedin.webp" width="21"/></button></a> <a href="https://www.reddit.com/r/knottersdotorg" rel="noreferrer" target="_blank"><span hidden="">Reddit</span><button aria-label="Reddit" class="primary w3-animate-zoom"><img alt="Reddit" height="22" loading="lazy" src="{{CDN}}/graphics/thirdparty/reddit.webp" width="22"/></button></a> <a href="https://www.youtube.com/@knottersdotorg" rel="noreferrer" target="_blank"><span hidden="">YouTube</span><button aria-label="YouTube" class="primary w3-animate-zoom"><img alt="YouTube" height="18" loading="lazy" src="{{CDN}}/graphics/thirdparty/youtube.webp" width="26"/></button></a> <a href="https://knottersdotorg.tumblr.com/" rel="noreferrer" target="_blank"><span hidden="">Tumblr</span><button aria-label="Tumblr" class="primary w3-animate-zoom"><img alt="Tumblr" height="22" loading="lazy" src="{{CDN}}/graphics/thirdparty/tumblr.webp" width="22"/></button></a> <a href="https://t.me/knotters" rel="noreferrer" target="_blank"><span hidden="">Telegram</span><button aria-label="Telegram" class="primary w3-animate-zoom"><img alt="Telegram" height="22" loading="lazy" src="{{CDN}}/graphics/thirdparty/telegram.webp" width="22"/></button></a>
+
                 {% endblock %}
                 <br/><br/>
                 <a href="{{URLS.Docs.TYPE}}" class="text-secondary">{% trans "Copyright" %} {% now "Y" %} Knotters</a>
