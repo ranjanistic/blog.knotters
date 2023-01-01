@@ -202,8 +202,8 @@ THUMBNAIL_PROCESSORS = (
 
 
 if not DEBUG:
-    os_environ["HTTPS"] = "on"
-    os_environ["wsgi.url_scheme"] = "https"
+    os.environ["HTTPS"] = "on"
+    os.environ["wsgi.url_scheme"] = "https"
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
