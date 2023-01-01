@@ -31,7 +31,8 @@
 
 {% block nav_extra_links %}
 {% endblock %}
-
+{% block themecolor %}tertiary{% endblock %}
+{% block nav_style %}tertiary{% endblock %}
 {% block nav_text %}{% endblock %}
 {% block nav_back_show %}{% endblock %}
 {% block nav_icon_hide %}{% endblock %}
@@ -40,54 +41,42 @@
 
 {% block content %}
 <div id="view-article">
-    <div class="w3-row w3-padding-small">
+    <div class="w3-row w3-padding tertiary">
         <div class="w3-col m8 l8">
             <div id="article-head">
                 <div id="article-head-view">
                     <div class="w3-row w3-padding paragraph" id="heading-view">
-                        <h1>{% page_attribute "page_title" %}</h1>
+                        <h1>{{ request.current_page.get_title }}</h1>
                     </div>
-                    <div class="w3-row text-large w3-padding paragraph" id="subheading-view">{{article.subheading|urlize|linebreaksbr}}</div>
+                    <div class="w3-row text-large w3-padding paragraph" id="subheading-view">{{ request.current_page.get_meta_description }}</div>
                 </div>
             </div>
             <br />
             <div class="w3-row">
-                <div class="w3-col m5 l3 w3-padding"><span class="dead-text">{{article.modifiedOn}}</span></div>
+                <div class="w3-col m5 l3 w3-padding"><span class="dead-text">{% page_attribute "page_publish" %}{{request.current_page.publication_date}}</span></div>
                 <div class="w3-col m7 l9 w3-padding">
                     <div id="view-articletags">
-                            <button class="accent navigator-share-action" data-icon="share" data-title="{{article.heading}}" data-text="{{article.subheading}}" data-url="{{article.getLink}}"></button>
+                            <button class=" small accent navigator-share-action" data-icon="share" data-title="{{request.current_page.get_title}}" data-text="{{request.current_page.get_meta_description}}" data-url="{{request.path}}"></button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="w3-col m4 l4 w3-right">
             <div class="w3-row w3-padding w3-right-align">
-                <a href="{{article.author.getLink}}">
-                    <img class="w3-circle w3-right" src="{{article.author.getDP}}" width="50"/>
-                    <h4 class="text-medium text-primary" style="margin-bottom:0px">{{article.author.getName}}{% if article.author.is_verified %}<i class="positive-text w3-large">verified</i>{% endif %}</h4>
-                    {% for label in article.author.get_labels %}
-                        <strong class="w3-tiny w3-round w3-tag {{label.theme}}">{{label.name}}</strong>
-                    {% endfor %}
-                    <span class="dead-text">{{article.author.getXP}}</span>
+                <a href="https://knotters.org/">
+                    <img class="w3-circle w3-right" src="{{ICON}}" width="50"/>
+                    <h6 class="dead-text w3-right w3-padding-small">{{APPNAME}}</h6>
                 </a>
             </div>
         </div>
     </div>
     <br />
-    <div id="sections">
-        <div class="w3-row section-body">
+        <div class="w3-row section-body w3-padding">
             <div class="sections w3-padding">
-                <div id="section-body-view">
 	{% placeholder "content" %}
-                </div>
-		<br/>
             </div>
         </div>
-    </div>
+   <br/>
 </div>
 {% endblock %}
 
-{% block scripts %}
-<script nonce="{{request.csp_nonce}}" src="{{URLS.SCRIPTS_SUBAPP}}?nickname={{article.nickname}}"></script>
-<script nonce="{{request.csp_nonce}}" src="{% static 'scripts/howto/article.js' %}"></script>
-{% endblock %}
