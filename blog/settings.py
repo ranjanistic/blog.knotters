@@ -14,7 +14,7 @@ ALLOWED_HOSTS = env.HOSTS
 
 ROOT_URLCONF = 'blog.urls'
 
-
+CDN_URL = env.CDN_URL
 
 WSGI_APPLICATION = 'blog.wsgi.application'
 
@@ -66,6 +66,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'blog', 'templates'),],
         'OPTIONS': {
             'context_processors': [
+                "blog.context_processors.Global",
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
@@ -76,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'sekizai.context_processors.sekizai',
                 'django.template.context_processors.static',
+                "django.template.context_processors.i18n",
                 'cms.context_processors.cms_settings'
             ],
             'loaders': [
@@ -171,7 +173,9 @@ CMS_TEMPLATES = (
     ## Customize this
     ('fullwidth.html', 'Fullwidth'),
     ('sidebar_left.html', 'Sidebar Left'),
-    ('sidebar_right.html', 'Sidebar Right')
+    ('sidebar_right.html', 'Sidebar Right'),
+    ('home.html', 'Home'),
+    ('blog.html', 'Blog'),
 )
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'

@@ -1,0 +1,275 @@
+{% load static %}
+{% load i18n %}
+{% load l10n %}
+{% load tz %}
+{% load cache %}
+{% load custom_tags %}
+{% load cms_tags menu_tags sekizai_tags %}
+
+<!DOCTYPE html>
+<html lang="{{LANGUAGE_CODE|or:'en'}}" class="">
+    <head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+        <meta name="theme-color" content="{% block themecolor %}{% endblock %}" id="themecolor">
+        <meta name="description" content="{% block meta_description %}{% endblock %}" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Knotters" />
+        <meta name="author" content="Knotters Community">
+
+        <meta property="og:locale" content="en-US" />
+        <meta name="image" property="og:image" content="{% block og_image_url_full %}{{SITE}}{% block og_image_url %}https://cdn.knotters.org/graphics/self/1024/icon-square.png{% endblock %}{% endblock %}" />
+        <meta property="og:type" content="{% block og_type %}social{% endblock %}" />
+        <meta property="og:url" content="{{SITE}}{% block og_url %}{% endblock %}" />
+        <meta property="og:title" content="{% block og_title %}{% trans "Home" %}{% endblock %} &#183; {{APPNAME}}" />
+        <meta property="og:description" content="{% block og_description %}{{DESCRIPTION|safe}}{% endblock %}" />
+        <meta property="og:site_name" content="{% block og_site_name %}{% trans "Home" %}{% endblock %} &#183; {{APPNAME}}" />
+
+        <meta name="twitter:title" content="{% block tw_title %}{{APPNAME}}{% endblock %}" />
+        <meta name="twitter:description" content="{% block tw_description %}{{DESCRIPTION|safe}}{% endblock %}" />
+        <meta name="twitter:image" content="{% block tw_image_url_full %}{{SITE}}{% block tw_image_url %}https://cdn.knotters.org/graphics/self/2500x1000/banner-bg.webp{% endblock %}{% endblock %}" />
+        <meta name="twitter:site" content="@knottersdotorg" />
+        <meta name="twitter:creator" content="@ranjanistic" />
+        <meta name="twitter:url" content="{{SITE}}{% block tw_url %}{% endblock %}" />
+        <meta name="twitter:card" content="{% block tw_card %}summary_large_image{% endblock %}" />
+    
+        <meta name="linkedin:card" content="{% block ld_image_url_full %}{{SITE}}{% block ld_image_url %}https://cdn.knotters.org/graphics/self/2500x1000/banner-bg.webp{% endblock %}{% endblock %}" />
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="{{APPNAME}}" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileImage" content="https://cdn.knotters.org/graphics/self/1024/icon-circle.webp" />
+        {% block metatags %}{% endblock %}
+
+        <link rel="apple-touch-icon" href="https://cdn.knotters.org/graphics/self/1024/icon-circle.webp" />
+        <link rel="apple-touch-startup-image" href="https://cdn.knotters.org/graphics/self/1024/icon-circle.webp" />
+        <link rel="icon" href="{% block icon %}https://cdn.knotters.org/graphics/self/64/icon-circle.webp{% endblock %}" class="darkimg">
+
+        <link rel="preload" as="font" href="https://cdn.knotters.org/fonts/Poppins/Devnagri.woff2" type="font/woff2" crossorigin />
+        <link rel="preload" as="font" href="https://cdn.knotters.org/fonts/Poppins/LatinX.woff2" type="font/woff2" crossorigin />
+        <link rel="preload" as="font" href="https://cdn.knotters.org/fonts/Poppins/Latin.woff2" type="font/woff2" crossorigin />
+        <link rel="preload" as="font" href="https://cdn.knotters.org/fonts/Questrial/Vietnamese.woff2" type="font/woff2" crossorigin />
+        <link rel="preload" as="font" href="https://cdn.knotters.org/fonts/Questrial/LatinX.woff2" type="font/woff2" crossorigin />
+        <link rel="preload" as="font" href="https://cdn.knotters.org/fonts/Questrial/Latin.woff2" type="font/woff2" crossorigin />
+        
+        <link rel="stylesheet" href="https://cdn.knotters.org/fonts/Poppins.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/fonts/Questrial.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/animxyz/animxyz.min.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/alertify/themes/default.min.css" />
+        <link rel="stylesheet" href="https://cdn.knotters.org/alertify/alertify.min.css' %%}" />
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/w3.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/icons/material.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/cropper/cropper.min.css'%}" />
+        <link rel="stylesheet" href="https://cdn.knotters.org/swiper/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/theme.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/loader.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/scrollbar.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/index.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/overrides.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/browser.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/styles/menu.css">
+        <link rel="stylesheet" href="https://cdn.knotters.org/fontawesome/font-awesome.min.css">
+        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}{% trans "Home" %}{% endblock %} &#183; {{APPNAME}}</title>
+        {% block head_scripts %}
+        {% endblock %}
+    {% endblock %}
+        {% render_block "css" %}
+    </head>
+    <body>
+        <noscript id="noscript" class="w3-row w3-padding negative">
+         <div
+           class="pallette primary negative-text w3-center w3-row"
+         >
+         <i class="w3-jumbo material-icons">error</i>
+         <h3 class="negative-text">Javascript Disabled</h3>
+           <div class="w3-row w3-center">
+            <strong class="text-medium negative-text">Please enable javascript in your browser, allow {{SITE}} to use it, if
+            denied.<br />If your browser doesn't support javascript, try a
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://google.com/search?q=modern+browsers"
+              >modern browser</a
+              >.</strong><br/><br/>
+             <a href="https://www.google.com/search?q=enable+javascript" 
+                target="_blank"
+                rel="noreferrer">
+              <button class="positive"><i class="material-icons">code</i>Enable JS</button>
+             </a>
+             <a href="{{request.path}}" 
+                rel="noreferrer">
+              <button class="primary"><i class="material-icons">refresh</i>Refresh</button>
+             </a>
+            </div>
+         </div>
+        </noscript>
+        {% cms_toolbar %}
+        {% block nav %}
+        <nav class="w3-row {% block nav_style %}primary{% endblock %} w3-animate-top" id="navbar">
+            <div class="w3-row w3-center tertiary pointer beta-alert-view" hidden>This is Knotters Beta, not Knotters. {% trans "Click here to learn more." %}</div>
+            {% block nav_title %}
+            <div class="w3-col s1 m3">
+            <a
+                style="padding:8px"
+                href="{% block nav_href %}{% if request.GET.previous %}{{request.GET.previous}}{% else %}{{ROOT}}{% endif %}{% endblock %}{% if request.GET.miniwin %}?miniwin=1{% endif %}" 
+                class="w3-left w3-animate-left previous-navigation-button">
+                <span hidden>{{APPNAME}}</span>
+                {% block nav_icon_hide %}
+                    <img alt="{{APPNAME}}" src="{{ICON}}" class="darkimg" width="40" height="40" class="window-close-action" />
+                {% endblock %}
+
+                <button
+                    {% block nav_back_show %}hidden{% endblock %}
+                    class="{% block nav_back_theme %}primary{% endblock %} previous-navigation-button window-close-action" data-icon="{% block nav_back_icon %}arrow_back{% endblock %}"></button>
+            </a>
+            <span class="w3-left w3-hide-small"><h3 class="{% block nav_text_style %}text-primary{% endblock %}">{% block nav_text %}{{APPNAME}}{% endblock %}</h3></span>
+            </div>
+            {% endblock %}
+            {% block nav_right %}
+            <div class="w3-col s11 m9">
+            <span class="w3-right w3-animate-right nav-tabs-span">
+                <button aria-label="Theme switch" class="secondary themeswitch" data-icon="brightness_medium"></button>
+                <a href="https://knotters.org"><button aria-label="Knotters" class="primary border-joy"><img src="{{ICON}}" class="darkimg" width="26" /></button></a>
+                {% block nav_links %}
+                    {% block nav_noauth %}
+                        {% block nav_noauth_contact_us %}
+                        {% endblock %}
+                        {% block nav_noauth_extra_links %}{% endblock %}
+                    {% endblock %}
+
+                    {% block nav_extra_links %}{% endblock %}
+                    {% block nav_auth %}
+                        {% block nav_auth_extra_links %}{% endblock %}
+                    {% endblock %}
+                {% endblock %}
+            </span>
+            </div>
+            {% endblock %}
+        </nav>
+        {% endblock %}
+        <div style="min-height: 50vh;">
+            {% block content %}
+            {% endblock %}
+        </div>
+        {% block footer %}
+        <footer class="w3-row secondary w3-padding w3-animate-bottom" >
+            <br/><br/>
+            <div class="w3-row w3-padding-small">
+            {% if LANGUAGES|length %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <select name="language" class="selectLanguage" id="language-footer">
+                {% for language in LANGUAGES %}
+                    <option class="optionLanguage"  value="{{ language.0 }}" {% if language.0 == LANGUAGE_CODE %}selected="selected"{% endif %}>{{ language.1 }}</option>
+                {% endfor %}
+                </select>
+            </form>
+            {% endif %}
+            </div>
+            <br/>
+            <div class="w3-col w3-half primary-text">
+                <div class="w3-col l4 m6 s6 w3-padding-small">
+                <a href="#0" class="text-secondary w3-animate-left pointer troubleshoot-action">{% trans "Troubleshooting" %}</a><br/>
+                <a href="#0" class="text-secondary w3-animate-left webapp-install-action">{% trans "Web App Installation" %}</a><br/>
+                <a href="#0" class="text-secondary w3-animate-left pointer report-feedback-action">{% trans "Report" %} &amp; {% trans "Feedback" %}</a><br/>
+                <a href="#0" class="text-secondary w3-animate-left contact-request-action">{% trans "Contact us" %}</a><br/>
+                </div>
+                <div class="w3-col l4 m6 s6 w3-padding-small">
+                {% comment %} <a href="/press" class="text-secondary w3-animate-left">{% trans "For the press" %}</a><br/> {% endcomment %}
+                <a href="{{URLS.HOME}}" class="text-secondary w3-animate-left">{% trans "About" %} {{APPNAME}}</a><br/>
+                <a href="{{URLS.DOCS}}" class="text-secondary w3-animate-left">{% trans "Docs" %} &amp; {% trans "Statements" %}</a><br/>
+                <a href="{{URLS.Docs.TYPE}}" class="text-secondary w3-animate-left">{% trans "Terms of Service" %}</a><br/>
+                <a href="{{URLS.Docs.TYPE}}" class="text-secondary w3-animate-left">{% trans "Privacy Policy" %}</a><br/>
+                <a href="{{URLS.Docs.TYPE}}" class="text-secondary w3-animate-left">{% trans "Open-source Licenses" %}</a><br/>
+                </div>
+                <div class="w3-col l4 m6 s6 w3-padding-small">
+                <a href="{{URLS.BRANDING}}" class="text-secondary w3-animate-left">{% trans "Brand Resources" %}</a><br/>
+                <a href="{{URLS.LANDING}}" class="text-secondary w3-animate-left">{% trans "The Landing Page" %}</a><br/>
+                <a href="https://api.knotters.org/" target="_blank" class="text-secondary w3-animate-left">{{APPNAME}} {% trans "API" %}</a><br/>
+                <a href="https://events.knotters.org/" target="_blank" class="text-secondary w3-animate-left">{{APPNAME}} {% trans "Events" %}</a><br/>
+                <a href="https://beta.knotters.org/" target="_blank" rel="nofollow" class="text-secondary w3-animate-left">{% trans "Beta" %} program</a><br/>
+                <a href="https://knotters.org/projects/profile/knottrans" target="_blank" class="text-secondary w3-animate-left">{% trans "Translation Project" %}</a><br/>
+                </div>
+            </div>
+            <div class="w3-col w3-half w3-padding-small w3-animate-right">
+                <br/><br/>                
+                <button class="primary w3-right navigator-share-action" data-title="{{APPNAME}}" data-text="Checkout this page at {{APPNAME}}" data-url="{{request.path}}" data-icon="share">{% trans "Share" %}</button>
+                <br/><br/>
+                <a href="{{URLS.HOME}}">
+                <div class="w3-row">
+                    <h2 class="text-secondary w3-right">{{APPNAME}} {% trans "Community" %}</h2>
+                </div>
+                <div class="w3-row">
+                    <img alt="{{APPNAME}}" class="w3-right darkimg" src="{{ICON}}" width="120" height="120" />
+                </div>
+                </a>
+            </div>
+            <div class="w3-row w3-center">
+                <a href="https://www.digitalocean.com/?refcode=ebf3fb45c9e2&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge" target="_blank">
+                    <img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" target="_blank" loading="lazy" width="160" height="60" />
+                </a>
+                <center>
+                <br/>
+                {% block footer_social %}
+                    {% for social in SOCIALS %}
+                    <a href="{{social.link}}" target="_blank" rel="noreferrer">
+                        <span hidden>{{social.name}}</span>
+                        <button aria-label="{{social.name}}" class="primary w3-animate-zoom">
+                            <img alt="{{social.name}}" src="{% static 'graphics/thirdparty/' %}{{social.key}}.webp" width="{{social.width}}" height="{{social.height}}" 
+                            {% if social.has_dark %}
+                                class="darkimg"
+                            {% endif %}
+                            loading="lazy"
+                            />
+                        </button>
+                    </a>
+                    {% endfor %}
+                {% endblock %}
+                <br/><br/>
+                <a href="{{URLS.Docs.TYPE}}" class="text-secondary">{% trans "Copyright" %} {% now "Y" %} Knotters</a>
+                </center>
+            </div>
+        </footer>
+        {% endblock %}
+        {% block loadview %}
+        <div class="view-loader" id="viewloader">
+            <div class="loader"></div>
+        </div>
+        <div class="linear-loader" id="subloader">
+            <div class="loading-animation"></div>
+        </div>
+        <div class="preview-image-modal w3-padding-small" id="image-previewer">
+            <img src="{{ICON}}"  id="preivew-image-src"/>
+        </div>
+        {% endblock %}
+        <script  defer src="https://cdn.knotters.org/alertify/alertify.min.js"></script>
+        <script  src="https://cdn.knotters.org/sweetalert2/sweetalert2.all.min.js"></script>
+        <script  src="https://cdn.knotters.org/cropper/cropper.min.js"></script>
+        <script  src="https://cdn.knotters.org/swiper/swiper-bundle.min.js"></script>
+        <script  src="https://knotters.org/scripts/strings.js"></script>
+        <script  src="https://knotters.org/scripts/constants.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/globalvars.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/index.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/menu.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/request.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/notification.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/theme.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/alerts.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/reporter.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/device.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/browser.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/snapshot.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/dynamiccontent.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/sw.js"></script>
+        <script  src="https://cdn.knotters.org/scripts/autostart.js"></script>
+        {% block in_scripts %}{% endblock %}
+        {% block ext_scripts %}{% endblock %}
+        {% block scripts %}
+        {% endblock %}
+        {% render_block "js" %}
+    </body>
+</html>

@@ -1,0 +1,93 @@
+{% extends 'home.html' %}
+{% load static %}
+{% load i18n %}
+{% load l10n %}
+{% load tz %}
+{% load cache %}
+{% load custom_tags %}
+{% load cms_tags %}
+
+
+{% block meta_description %}{{article.subheading}}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_url %}{{article.getLink}}{% endblock %}
+{% block og_title %}{{article.heading}}{% endblock %}
+{% block og_description %}{{article.subheading}}{% endblock %}
+{% block og_image_url %}{{ article.getImage }}{% endblock %}
+
+{% block metatags %}
+{% endblock %}
+
+{% block tw_url %}{{article.getLink}}{% endblock %}
+{% block tw_title %}{{article.heading}}{% endblock %}
+{% block tw_description %}{{article.subheading}}{% endblock %}
+{% block tw_image_url %}{{ article.getImage }}{% endblock %}
+
+{% block ld_image_url %}{{ article.getImage }}{% endblock %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block nav_href %}/{% endblock %}
+
+{% block nav_extra_links %}
+{% endblock %}
+
+{% block nav_text %}{% endblock %}
+{% block nav_back_show %}{% endblock %}
+{% block nav_icon_hide %}{% endblock %}
+{% block nav_back_theme %}secondary{% endblock %}
+
+
+{% block content %}
+<div id="view-article">
+    <div class="w3-row w3-padding-small">
+        <div class="w3-col m8 l8">
+            <div id="article-head">
+                <div id="article-head-view">
+                    <div class="w3-row w3-padding paragraph" id="heading-view">
+                        <h1>{% page_attribute "page_title" %}</h1>
+                    </div>
+                    <div class="w3-row text-large w3-padding paragraph" id="subheading-view">{{article.subheading|urlize|linebreaksbr}}</div>
+                </div>
+            </div>
+            <br />
+            <div class="w3-row">
+                <div class="w3-col m5 l3 w3-padding"><span class="dead-text">{{article.modifiedOn}}</span></div>
+                <div class="w3-col m7 l9 w3-padding">
+                    <div id="view-articletags">
+                            <button class="accent navigator-share-action" data-icon="share" data-title="{{article.heading}}" data-text="{{article.subheading}}" data-url="{{article.getLink}}"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w3-col m4 l4 w3-right">
+            <div class="w3-row w3-padding w3-right-align">
+                <a href="{{article.author.getLink}}">
+                    <img class="w3-circle w3-right" src="{{article.author.getDP}}" width="50"/>
+                    <h4 class="text-medium text-primary" style="margin-bottom:0px">{{article.author.getName}}{% if article.author.is_verified %}<i class="positive-text w3-large">verified</i>{% endif %}</h4>
+                    {% for label in article.author.get_labels %}
+                        <strong class="w3-tiny w3-round w3-tag {{label.theme}}">{{label.name}}</strong>
+                    {% endfor %}
+                    <span class="dead-text">{{article.author.getXP}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="sections">
+        <div class="w3-row section-body">
+            <div class="sections w3-padding">
+                <div id="section-body-view">
+	{% placeholder "content" %}
+                </div>
+		<br/>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{request.csp_nonce}}" src="{{URLS.SCRIPTS_SUBAPP}}?nickname={{article.nickname}}"></script>
+<script nonce="{{request.csp_nonce}}" src="{% static 'scripts/howto/article.js' %}"></script>
+{% endblock %}
